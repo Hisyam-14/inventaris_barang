@@ -11,8 +11,6 @@ class Barang:
         self.kondisi = kondisi
         self.harga_beli = harga_beli
 
-    
-
 class Inventaris:
     def __init__(self):
         self.daftar_barang = []
