@@ -119,8 +119,6 @@ def menu_utama():
         else:
             print("Pilihan tidak valid!")
 
-
 inventaris = Inventaris()
-
 
 menu_utama()
