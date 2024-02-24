@@ -30,6 +30,8 @@ class Inventaris:
             if barang.kode_barang == kode_barang:
                 self.daftar_barang.remove(barang)
                 break
+            else:
+                print("Data Tidak Valid")
 
         for i, barang in enumerate(self.daftar_barang, start=1):
             barang.kode_barang = f"BRG{i:03d}"
@@ -44,6 +46,8 @@ class Inventaris:
                     else:
                         print(f"Field {key} tidak ditemukan pada barang dengan kode {kode_barang}")
                 break
+            else:
+                print("Data Tidak Ditemukan!")
 
     # Read Barang
     def tampilkan_data(self):
@@ -61,7 +65,12 @@ class Inventaris:
 def tambah_barang():
     nama_barang = input("Masukkan nama barang: ")
     kondisi = input("Masukkan kondisi barang: ")
-    harga_beli = int(input("Masukkan harga beli barang: "))
+    while True:
+        try:
+            harga_beli = int(input("Masukkan harga beli barang: "))
+            break
+        except ValueError:
+            print("Harus Angka!")
 
     inventaris.tambah_barang(nama_barang, kondisi, harga_beli)
 
