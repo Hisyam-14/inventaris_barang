@@ -1,11 +1,12 @@
 from prettytable import PrettyTable
 
 class Barang:
-    _kode_terakhir = 0
+    no = 0
 
-    def __init__(self, nama_barang, kondisi, harga_beli):
-        Barang._kode_terakhir += 1
-        self.kode_barang = f"BRG{Barang._kode_terakhir:03d}"
+    def __init__(self, kode_barang, nama_barang, kondisi, harga_beli):
+        Barang.no += 1
+        self.no = f"{Barang.no:02d}"
+        self.kode_barang = kode_barang
         self.nama_barang = nama_barang
         self.kondisi = kondisi
         self.harga_beli = harga_beli
@@ -17,12 +18,12 @@ class Inventaris:
         self.daftar_barang = []
 
     # Create Barang
-    def tambah_barang(self, nama_barang, kondisi, harga_beli):
-        barang = Barang(nama_barang, kondisi, harga_beli)
+    def tambah_barang(self, kode_barang, nama_barang, kondisi, harga_beli):
+        barang = Barang(kode_barang, nama_barang, kondisi, harga_beli)
         inventaris.daftar_barang.append(barang)
 
         for i, barang in enumerate(inventaris.daftar_barang, start=1):
-            barang.kode_barang = f"BRG{i:03d}"
+            barang.no = f"{i:02d}"
     
     # Delete Barang
     def hapus_barang(self, kode_barang):
@@ -34,7 +35,7 @@ class Inventaris:
                 print("Data Tidak Valid")
 
         for i, barang in enumerate(self.daftar_barang, start=1):
-            barang.kode_barang = f"BRG{i:03d}"
+            barang.no = f"{i:02d}"
 
     # Update Barang
     def update_barang(self, kode_barang, **invt):
@@ -44,7 +45,7 @@ class Inventaris:
                     if hasattr(barang, key):
                         setattr(barang, key, value)
                     else:
-                        print(f"Field {key} tidak ditemukan pada barang dengan kode {kode_barang}")
+                        print(f"{key} tidak ditemukan pada barang dengan kode {kode_barang}")
                 break
             else:
                 print("Data Tidak Ditemukan!")
@@ -52,9 +53,10 @@ class Inventaris:
     # Read Barang
     def tampilkan_data(self):
         table = PrettyTable()
-        table.field_names = ["Kode Barang", "Nama Barang", "Kondisi", "Harga Beli"]
+        table.field_names = ["No", "Kode Barang", "Nama Barang", "Kondisi", "Harga Beli"]
         for barang in self.daftar_barang:
             table.add_row([
+                barang.no,
                 barang.kode_barang,
                 barang.nama_barang,
                 barang.kondisi,
@@ -63,6 +65,11 @@ class Inventaris:
         print(table)
 
 def tambah_barang():
+    kode_barang = input("Masukkan kode barang: ")
+    for barang in inventaris.daftar_barang:
+        if barang.kode_barang == kode_barang:
+            print("Kode barang sudah ada")
+            return
     nama_barang = input("Masukkan nama barang: ")
     kondisi = input("Masukkan kondisi barang: ")
     while True:
@@ -72,7 +79,7 @@ def tambah_barang():
         except ValueError:
             print("Harus Angka!")
 
-    inventaris.tambah_barang(nama_barang, kondisi, harga_beli)
+    inventaris.tambah_barang(kode_barang, nama_barang, kondisi, harga_beli)
 
 def tampilkan_data():
     inventaris.tampilkan_data()
@@ -80,7 +87,12 @@ def tampilkan_data():
 def ubah_barang():
     kode_barang = input("Masukkan kode barang yang ingin diubah: ")
     field = input("Masukkan field yang ingin diubah (nama_barang, kondisi, harga_beli): ")
-    new_value = input("Masukkan nilai baru: ")
+    while True:
+        try:
+            new_value = int(input("Masukkan nilai baru: "))
+            break
+        except ValueError:
+            print("Harus angka!")
 
     inventaris.update_barang(kode_barang, **{field: new_value})
 
