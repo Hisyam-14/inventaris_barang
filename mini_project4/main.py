@@ -257,8 +257,8 @@ class Inventaris:
         return current.data
 
 def tambah_barang():
-    current = inventaris.head
     kode_barang = input("Masukkan kode barang: ")
+    current = inventaris.head
     while current is not None:
         if current.data.kode_barang == kode_barang:
             print("Kode barang sudah ada!")
@@ -271,7 +271,7 @@ def tambah_barang():
             harga_beli = int(input("Masukkan harga beli barang: "))
             break
         except ValueError:
-            print("Harus Beli Harus Angka!")
+            print("Harga beli harus angka!")
     posisi = input("Pilih menambahkan barang (awal, akhir, diantara): ")
     if posisi == "awal":
         inventaris.tambah_barang_awal(kode_barang, nama_barang, kondisi, harga_beli)
@@ -374,14 +374,19 @@ def menu_utama():
 
                 if pilihan == 1:
                     tambah_barang()
+                    break
                 elif pilihan == 2:
                     ubah_barang()
+                    break
                 elif pilihan == 3:
                     sorting()
+                    break
                 elif pilihan == 4:
                     hapus_barang()
+                    break
                 elif pilihan == 5:
                     fibonacci_search()
+                    break
                 elif pilihan == 6:
                     exit()
                 else:
@@ -390,5 +395,11 @@ def menu_utama():
                 print("Harus Angka!")
 
 inventaris = Inventaris()
+
+inventaris.tambah_barang_awal("VisO123", "Kursi", "Baik", 5000)
+inventaris.tambah_barang_awal("VsO13", "Meja", "Rusak", 50000)
+inventaris.tambah_barang_awal("LiTO13", "Monitor", "Baik", 705000)
+inventaris.tambah_barang_awal("OisO23", "Lapto", "Rusak", 25000)
+inventaris.tambah_barang_awal("KVsO13", "Laptop", "Baik", 605000)
 
 menu_utama()
