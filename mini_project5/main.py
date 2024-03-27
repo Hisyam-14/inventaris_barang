@@ -155,9 +155,9 @@ class Inventaris:
         greater_head = self._quick_sort(greater_head, key, ascending=ascending)
 
         if ascending:
-            sorted_list = self._concatenate_lists(less_head, equal_head, greater_head)
+            sorted_list = self.gabung(less_head, equal_head, greater_head)
         else:
-            sorted_list = self._concatenate_lists(greater_head, equal_head, less_head)
+            sorted_list = self.gabung(greater_head, equal_head, less_head)
 
         return sorted_list
     
@@ -170,7 +170,7 @@ class Inventaris:
         self.head = self._quick_sort(self.head, key='harga_beli', ascending=ascending)
 
     # Menggabungkan 3 linked list agar jadi 1 linked list
-    def _concatenate_lists(self, head1, head2, head3):
+    def gabung(self, head1, head2, head3):
         if head1 is None:
             if head2 is None:
                 return head3
