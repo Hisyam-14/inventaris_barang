@@ -198,7 +198,7 @@ class Inventaris:
         while current is not None:
             if search_by == 'kode_barang' and current.data.kode_barang == key:
                 found_items.append(current.data)
-            elif search_by == 'kondisi' and current.data.kondisi == key:
+            elif search_by == 'kondisi' and current.data.kondisi.lower() == key.lower():
                 found_items.append(current.data)
             current = current.next
 
@@ -231,13 +231,13 @@ class Inventaris:
         while fib_current > 1:
             i = min(offset + fib_m_minus_2, length - 1)
 
-            if self.get_barang_at_index(i).kode_barang < key:
+            if self.get_barang_at_index(i).kode_barang.lower() < key.lower():
                 fib_current = fib_m_minus_1
                 fib_m_minus_1 = fib_m_minus_2
                 fib_m_minus_2 = fib_current - fib_m_minus_1
                 offset = i
 
-            elif self.get_barang_at_index(i).kode_barang > key:
+            elif self.get_barang_at_index(i).kode_barang.lower() > key.lower():
                 fib_current = fib_m_minus_2
                 fib_m_minus_1 = fib_m_minus_1 - fib_m_minus_2
                 fib_m_minus_2 = fib_current - fib_m_minus_1
