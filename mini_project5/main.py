@@ -130,13 +130,13 @@ class Inventaris:
         greater_tail = None
 
         while node is not None:
-            if getattr(node.data, key) < getattr(pivot, key):
+            if getattr(node.data, key).lower() < getattr(pivot, key).lower():
                 if less_head is None:
                     less_head = less_tail = Node(node.data)
                 else:
                     less_tail.next = Node(node.data)
                     less_tail = less_tail.next
-            elif getattr(node.data, key) == getattr(pivot, key):
+            elif getattr(node.data, key).lower() == getattr(pivot, key).lower():
                 if equal_head is None:
                     equal_head = equal_tail = Node(node.data)
                 else:
