@@ -130,25 +130,44 @@ class Inventaris:
         greater_tail = None
 
         while node is not None:
-            if str(getattr(node.data, key).lower()) < str(getattr(pivot, key).lower()):
-                if less_head is None:
-                    less_head = less_tail = Node(node.data)
+            if key == 'nama_barang':
+                if getattr(node.data, key).lower() < getattr(pivot, key).lower():
+                    if less_head is None:
+                        less_head = less_tail = Node(node.data)
+                    else:
+                        less_tail.next = Node(node.data)
+                        less_tail = less_tail.next
+                elif getattr(node.data, key).lower() == getattr(pivot, key).lower():
+                    if equal_head is None:
+                        equal_head = equal_tail = Node(node.data)
+                    else:
+                        equal_tail.next = Node(node.data)
+                        equal_tail = equal_tail.next
                 else:
-                    less_tail.next = Node(node.data)
-                    less_tail = less_tail.next
-            elif str(getattr(node.data, key).lower()) == str(getattr(pivot, key).lower()):
-                if equal_head is None:
-                    equal_head = equal_tail = Node(node.data)
+                    if greater_head is None:
+                        greater_head = greater_tail = Node(node.data)
+                    else:
+                        greater_tail.next = Node(node.data)
+                        greater_tail = greater_tail.next
+            elif key == 'harga_beli':
+                if getattr(node.data, key) < getattr(pivot, key):
+                    if less_head is None:
+                        less_head = less_tail = Node(node.data)
+                    else:
+                        less_tail.next = Node(node.data)
+                        less_tail = less_tail.next
+                elif getattr(node.data, key) == getattr(pivot, key):
+                    if equal_head is None:
+                        equal_head = equal_tail = Node(node.data)
+                    else:
+                        equal_tail.next = Node(node.data)
+                        equal_tail = equal_tail.next
                 else:
-                    equal_tail.next = Node(node.data)
-                    equal_tail = equal_tail.next
-            else:
-                if greater_head is None:
-                    greater_head = greater_tail = Node(node.data)
-                else:
-                    greater_tail.next = Node(node.data)
-                    greater_tail = greater_tail.next
-
+                    if greater_head is None:
+                        greater_head = greater_tail = Node(node.data)
+                    else:
+                        greater_tail.next = Node(node.data)
+                        greater_tail = greater_tail.next
             node = node.next
 
         less_head = self._quick_sort(less_head, key, ascending=ascending)
